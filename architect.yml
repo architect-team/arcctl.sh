@@ -1,8 +1,16 @@
 version: v2
 
-static:
+builds:
   website:
-    directory: ./
-    build:
-      context: ./
+    context: ./
+
+buckets:
+  website:
+    deploy:
+      image: ${{ builds.website.image }}
       command: npm run build
+      publish: ./build
+
+ingresses:
+  website:
+    bucket: website
